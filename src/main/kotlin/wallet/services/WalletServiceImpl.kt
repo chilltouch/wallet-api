@@ -13,7 +13,13 @@ class WalletServiceImpl @Autowired constructor(val balanceUpdateService: Balance
 
     override fun createBalance(balance: BigDecimal, userId: String): Balance {
         validator.validate(balance, userId)
-        var newBalance = Balance(id = null, balance = balance, userId = userId, createdDate = Date(), deleted = false, updatedDate = null)
+        var newBalance = Balance(id = null,
+                                 balance = balance,
+                                 userId = userId,
+                                 createdDate = Date(),
+                                 deleted = false,
+                                 updatedDate = null)
+
         newBalance = balanceRepository.save(newBalance)
         return newBalance
     }

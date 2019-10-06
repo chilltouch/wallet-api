@@ -11,7 +11,7 @@ import java.math.BigDecimal
 @RestController
 class WalletController @Autowired constructor(private val walletService: WalletService) {
 
-    @GetMapping("/balance/{id}")
+    @GetMapping("/balance")
     fun getBalance(@RequestBody request: BalanceRequest): GenericResponse<Balance, Nothing?> {
         var result: Balance = walletService.getBalance(request.id, request.userId)
         return GenericResponse(result, null, true)
