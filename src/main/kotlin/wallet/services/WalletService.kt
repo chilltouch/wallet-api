@@ -5,10 +5,9 @@ import wallet.to.be.removed.StoreService
 import java.math.BigDecimal
 
 interface WalletService {
-    // this is going to be repository
-    val storeService: StoreService
-
-    fun getBalance(id: Long): Balance
-    fun deposit(id: Long, amount: BigDecimal): Balance
-    fun withdraw(id: Long, amount: BigDecimal): Balance
+    fun createBalance(balance: BigDecimal, userId: String): Balance
+    fun deleteBalance(balanceId: Long, userId: String): Balance
+    fun getBalance(id: Long, userId: String): Balance
+    fun deposit(id: Long, amount: BigDecimal, userId: String): Balance
+    fun withdraw(id: Long, amount: BigDecimal, userId: String): Balance
 }

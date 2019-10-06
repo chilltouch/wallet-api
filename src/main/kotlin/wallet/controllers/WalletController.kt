@@ -2,32 +2,42 @@ package wallet.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import wallet.controllers.requests.BalanceRequest
 import wallet.entities.Balance
-import wallet.responses.GenericResponse
+import wallet.controllers.responses.GenericResponse
 import wallet.services.WalletService
 import java.math.BigDecimal
 
 @RestController
 class WalletController @Autowired constructor(private val walletService: WalletService) {
 
-
     @GetMapping("/balance/{id}")
-    fun getBalance(@PathVariable id: Long): GenericResponse<Balance, Nothing?> {
-        var result: Balance = walletService.getBalance(id)
+    fun getBalance(@RequestBody request: BalanceRequest): GenericResponse<Balance, Nothing?> {
+        var result: Balance = walletService.getBalance(request.id, request.userId)
         return GenericResponse(result, null, true)
     }
 
-    @PostMapping("/deposit/{id}/{amount}")
-    fun deposit(@PathVariable id: Long, @PathVariable amount: BigDecimal): GenericResponse<Balance, Nothing?> {
-        var result: Balance = walletService.deposit(id, amount)
+    @PostMapping("/create")
+    fun createBalance(@RequestBody request: BalanceRequest): GenericResponse<Balance, Nothing?> {
+        var balance: Balance = walletService.createBalance(request.amount, request.userId)
+        return GenericResponse(balance, null, true)
+    }
+
+    @PostMapping("/delete")
+    fun deleteBalance(@RequestBody request: BalanceRequest): GenericResponse<Balance, Nothing?> {
+        var balance: Balance = walletService.deleteBalance(request.id, request.userId)
+        return GenericResponse(balance, null, true)
+    }
+
+    @PostMapping("/deposit")
+    fun deposit(@RequestBody request: BalanceRequest): GenericResponse<Balance, Nothing?> {
+        var result: Balance = walletService.deposit(request.id, request.amount, request.userId)
         return GenericResponse(result, null, true)
     }
 
-    @PostMapping("/withdraw/{id}/{amount}")
-    fun withdraw(@PathVariable id: Long, @PathVariable amount: BigDecimal): GenericResponse<Balance, Nothing?> {
-        var result: Balance = walletService.withdraw(id, amount)
+    @PostMapping("/withdraw")
+    fun withdraw(@RequestBody request: BalanceRequest): GenericResponse<Balance, Nothing?> {
+        var result: Balance = walletService.withdraw(request.id, request.amount, request.userId)
         return GenericResponse(result, null, true)
     }
-
-
 }
