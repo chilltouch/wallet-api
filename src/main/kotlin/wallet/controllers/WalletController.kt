@@ -13,31 +13,31 @@ class WalletController @Autowired constructor(private val walletService: WalletS
 
     @GetMapping("/balance")
     fun getBalance(@RequestBody request: BalanceRequest): GenericResponse<Balance, Nothing?> {
-        var result: Balance = walletService.getBalance(request.id, request.userId)
+        var result: Balance = walletService.getBalance(request.id, request.userId, request.type)
         return GenericResponse(result, null, true)
     }
 
     @PostMapping("/create")
     fun createBalance(@RequestBody request: BalanceRequest): GenericResponse<Balance, Nothing?> {
-        var balance: Balance = walletService.createBalance(request.amount, request.userId)
+        var balance: Balance = walletService.createBalance(request.amount, request.userId, request.type)
         return GenericResponse(balance, null, true)
     }
 
     @PostMapping("/delete")
     fun deleteBalance(@RequestBody request: BalanceRequest): GenericResponse<Balance, Nothing?> {
-        var balance: Balance = walletService.deleteBalance(request.id, request.userId)
+        var balance: Balance = walletService.deleteBalance(request.id, request.userId, request.type)
         return GenericResponse(balance, null, true)
     }
 
     @PostMapping("/deposit")
     fun deposit(@RequestBody request: BalanceRequest): GenericResponse<Balance, Nothing?> {
-        var result: Balance = walletService.deposit(request.id, request.amount, request.userId)
+        var result: Balance = walletService.deposit(request.id, request.amount, request.userId, request.type)
         return GenericResponse(result, null, true)
     }
 
     @PostMapping("/withdraw")
     fun withdraw(@RequestBody request: BalanceRequest): GenericResponse<Balance, Nothing?> {
-        var result: Balance = walletService.withdraw(request.id, request.amount, request.userId)
+        var result: Balance = walletService.withdraw(request.id, request.amount, request.userId, request.type)
         return GenericResponse(result, null, true)
     }
 }

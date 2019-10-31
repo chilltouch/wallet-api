@@ -1,12 +1,14 @@
 package wallet.services.utils.validators
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import wallet.entities.Balance
+import wallet.services.ErrorHandler
 import java.math.BigDecimal
 import javax.validation.ValidationException
 
 @Component
-class BalanceValidator {
+class BalanceValidator @Autowired constructor(var exceptionHandler: ErrorHandler){
 
     fun validateBalance(balance: Balance) {
         if (balance == null) {
